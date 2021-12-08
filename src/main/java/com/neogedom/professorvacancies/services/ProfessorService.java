@@ -21,6 +21,5 @@ public class ProfessorService {
 
     public Professor fromDTO (@NotNull ProfessorDTO professorDTO) {
         return new Professor(professorDTO.getId(), professorDTO.getNome(), professorDTO.getInteresseDePesquisa());
-
     }
 }

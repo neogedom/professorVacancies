@@ -3,10 +3,12 @@ package com.neogedom.professorvacancies.dto;
 
 import com.neogedom.professorvacancies.domain.Professor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 
-@Data @NoArgsConstructor
+@Getter @Setter @NoArgsConstructor
 public class ProfessorDTO {
     private String id;
     private String nome;

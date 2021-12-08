@@ -1,14 +1,14 @@
 package com.neogedom.professorvacancies.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Data @Document @AllArgsConstructor
+@Data @Document @RequiredArgsConstructor @AllArgsConstructor @NoArgsConstructor
 public class Professor {
     @Id
-    private String id;
-    private String nome;
-    private String interesseDePesquisa;
+    @NonNull private String id;
+    @NonNull private String nome;
+    @NonNull private String interesseDePesquisa;
+    private Orientacao orientacao;
 }

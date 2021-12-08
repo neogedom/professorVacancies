@@ -26,8 +26,8 @@ public class ProfessorResource {
     @PostMapping
     public ResponseEntity<ProfessorDTO> create (@RequestBody ProfessorDTO professorDTO) {
         Professor professor = professorService.fromDTO(professorDTO);
-        var dtoForReturn = new ProfessorDTO(professorService.create(professor));
-        return ResponseEntity.status(HttpStatus.CREATED).body(dtoForReturn);
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(new ProfessorDTO(professorService.create(professor)));
     }
 
 }
