@@ -1,12 +1,9 @@
 package com.neogedom.professorvacancies.dto;
 
 import com.neogedom.professorvacancies.domain.Orientacao;
-import com.neogedom.professorvacancies.domain.Periodo;
 import com.neogedom.professorvacancies.domain.enums.Tipo;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -16,7 +13,7 @@ public class OrientacaoDTO {
     private String id;
     @Field
     private Tipo tipo;
-    private Periodo periodoInscricao;
+    private PeriodoDTO periodoInscricao;
     private String professor;
     private Integer vagas;
 
