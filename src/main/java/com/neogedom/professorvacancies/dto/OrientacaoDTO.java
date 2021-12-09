@@ -18,11 +18,13 @@ public class OrientacaoDTO {
     private Tipo tipo;
     private Periodo periodoInscricao;
     private String professor;
+    private Integer vagas;
 
     public OrientacaoDTO (@NotNull Orientacao orientacao) {
         this.id = orientacao.getId();
         this.tipo = orientacao.getTipo();
         this.periodoInscricao = orientacao.getPeriodoInscricao();
         this.professor = orientacao.getProfessor().getId();
+        this.vagas = orientacao.getVagas();
     }
 }

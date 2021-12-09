@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
@@ -18,12 +19,15 @@ public class Orientacao {
     @Field @NonNull private Tipo tipo;
     @NonNull private Periodo periodoInscricao;
     @NonNull private Professor professor;
+    @NonNull private Integer vagas;
     private List<Aluno> alunos = new ArrayList<>();
 
-    public Orientacao(String id, @NonNull Tipo tipo, @NonNull Periodo periodoInscricao, @NonNull Professor professor) {
+    public Orientacao(String id, @NotNull Tipo tipo, @NotNull Periodo periodoInscricao,
+                      @NotNull Professor professor, @NonNull Integer vagas) {
         this.id = id;
         this.tipo = tipo;
         this.periodoInscricao = periodoInscricao;
         this.professor = professor;
+        this.vagas = vagas;
     }
 }
