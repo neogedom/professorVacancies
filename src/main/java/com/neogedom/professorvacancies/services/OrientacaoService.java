@@ -21,6 +21,12 @@ public class OrientacaoService {
         this.professorRepository = professorRepository;
     }
 
+    public Orientacao getById(@NotNull String id) {
+        return orientacaoRepository.findById(id)
+                .orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " +
+                        id + "Tipo: " + Orientacao.class.getName()));
+    }
+
     public Orientacao create (@NotNull Orientacao orientacao) {
         var professor =  professorRepository.findById(orientacao.getProfessor().getId())
                 .orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " +
@@ -29,11 +35,29 @@ public class OrientacaoService {
         return orientacaoRepository.save(orientacao);
     }
 
+    // inscrição ->
+    // verifica se ainda tem vaga (possivelmente usando mutex)
+    // insere aluno na lista de alunos (inscritos) da orientação,
+    // pega usuário logado, testa se é aluno, insere aluno na lista
+    // insere orientação na lista de orientações do aluno
+    // altera quantidade de vagas,
+
+
+//    public Orientacao subscribe(@NotNull String id, @NotNull Orientacao orientacaoDTO) {
+//        var orientacao = getById(orientacaoDTO.getId());
+//        if (orientacao.getVagas() > 0) {
+////            orientacao.getInscritos().add(aluno);
+//            orientacao.setVagas(orientacao.getVagas() - 1);
+//        }
+//        return null;
+//    }
+
     public Orientacao fromDTO(@NotNull OrientacaoDTO orientacaoDTO) {
         var professor =  professorRepository.findById(orientacaoDTO.getProfessor())
                 .orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " +
                         orientacaoDTO.getProfessor() + "Tipo: " + Professor.class.getName()));
         return new Orientacao(orientacaoDTO.getId(), orientacaoDTO.getTipo(), orientacaoDTO.getPeriodoInscricao(), professor, orientacaoDTO.getVagas());
     }
+
 
 }

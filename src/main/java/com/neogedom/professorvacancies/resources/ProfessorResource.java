@@ -14,7 +14,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 
 @RestController
-@RequestMapping(value = "/professores")
+@RequestMapping(value = "/professor")
 public class ProfessorResource {
 
     @NonNull final ProfessorService professorService;
