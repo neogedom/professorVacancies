@@ -20,7 +20,7 @@ public class Orientacao {
     @NonNull private PeriodoDTO periodoInscricao;
     @NonNull private Professor professor;
     @NonNull private Integer vagas;
-    private List<Aluno> alunos = new ArrayList<>();
+    private List<Aluno> inscritos = new ArrayList<>();
 
     public Orientacao(String id, @NotNull Tipo tipo, @NotNull PeriodoDTO periodoInscricao,
                       @NotNull Professor professor, @NonNull Integer vagas) {
