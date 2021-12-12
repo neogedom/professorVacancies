@@ -20,6 +20,6 @@ public class AlunoService {
     }
 
     public Aluno fromDTO (@NotNull AlunoDTO alunoDTO) {
-        return new Aluno(alunoDTO.getId(), alunoDTO.getNome(), alunoDTO.getEmail(), alunoDTO.getTelefone());
+        return new Aluno(alunoDTO.getId(), alunoDTO.getNome(), alunoDTO.getTelefone(), alunoDTO.getEmail(), alunoDTO.getSenha());
     }
 }

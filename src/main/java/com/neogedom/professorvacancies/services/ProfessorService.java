@@ -20,6 +20,6 @@ public class ProfessorService {
     }
 
     public Professor fromDTO (@NotNull ProfessorDTO professorDTO) {
-        return new Professor(professorDTO.getId(), professorDTO.getNome(), professorDTO.getInteresseDePesquisa());
+        return new Professor(professorDTO.getId(), professorDTO.getNome(), professorDTO.getInteresseDePesquisa(), professorDTO.getEmail(), professorDTO.getSenha());
     }
 }
