@@ -13,15 +13,17 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-//    private static final String[] PUBLIC_MATCHERS = {
-//            "/home/**"
-//    };
+    private static final String[] PUBLIC_MATCHERS = {
+            "/professor/**",
+            "/aluno/**",
+            "/orientacao/**"
+    };
 
     @Override
     protected void configure(@NotNull HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable();
         http.authorizeRequests()
-//                .antMatchers(PUBLIC_MATCHERS).permitAll()
+                .antMatchers(PUBLIC_MATCHERS).permitAll()
                 .anyRequest().authenticated();
     }
 
