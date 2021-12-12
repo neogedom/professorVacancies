@@ -2,9 +2,8 @@ package com.neogedom.professorvacancies.resources;
 
 import com.neogedom.professorvacancies.domain.Aluno;
 import com.neogedom.professorvacancies.dto.AlunoDTO;
-import com.neogedom.professorvacancies.dto.ProfessorDTO;
+import com.neogedom.professorvacancies.dto.NewAlunoDTO;
 import com.neogedom.professorvacancies.services.AlunoService;
-import com.neogedom.professorvacancies.services.ProfessorService;
 import lombok.NonNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +23,7 @@ public class AlunoResource {
     }
 
     @PostMapping
-    public ResponseEntity<AlunoDTO> create (@RequestBody AlunoDTO alunoDTO) {
+    public ResponseEntity<AlunoDTO> create (@RequestBody NewAlunoDTO alunoDTO) {
         Aluno aluno = alunoService.fromDTO(alunoDTO);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(new AlunoDTO(alunoService.create(aluno)));
