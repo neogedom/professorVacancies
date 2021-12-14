@@ -24,13 +24,13 @@ public class OrientacaoService {
     public Orientacao getById(@NotNull String id) {
         return orientacaoRepository.findById(id)
                 .orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " +
-                        id + "Tipo: " + Orientacao.class.getName()));
+                        id + " Tipo: " + Orientacao.class.getName()));
     }
 
     public Orientacao create (@NotNull Orientacao orientacao) {
         var professor =  professorRepository.findById(orientacao.getProfessor().getId())
                 .orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " +
-                        orientacao.getProfessor().getId() + "Tipo: " + Professor.class.getName()));
+                        orientacao.getProfessor().getId() + " Tipo: " + Professor.class.getName()));
         orientacao.setProfessor(professor);
         return orientacaoRepository.save(orientacao);
     }
@@ -55,7 +55,7 @@ public class OrientacaoService {
     public Orientacao fromDTO(@NotNull OrientacaoDTO orientacaoDTO) {
         var professor =  professorRepository.findById(orientacaoDTO.getProfessor())
                 .orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " +
-                        orientacaoDTO.getProfessor() + "Tipo: " + Professor.class.getName()));
+                        orientacaoDTO.getProfessor() + " Tipo: " + Professor.class.getName()));
         return new Orientacao(orientacaoDTO.getId(), orientacaoDTO.getTipo(), orientacaoDTO.getPeriodoInscricao(), professor, orientacaoDTO.getVagas());
     }
 
