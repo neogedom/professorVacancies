@@ -17,7 +17,6 @@ public class Aluno extends Usuario {
     @NonNull private String nome;
     @NonNull private String telefone;
     private List<Orientacao> orientacoes = new ArrayList<>();
-    private Set<Perfil> perfis = new HashSet<>();
 
     public Aluno(String id, @NonNull String nome, @NonNull String telefone,
     @NotNull String email, @NotNull String senha) {
@@ -25,9 +24,5 @@ public class Aluno extends Usuario {
         this.nome = nome;
         this.telefone = telefone;
         addPerfil(Perfil.ROLE_ALUNO);
-    }
-
-    public void addPerfil(Perfil perfil) {
-        perfis.add(perfil);
     }
 }
