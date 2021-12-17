@@ -14,15 +14,20 @@ import java.util.List;
 @Document(collection = "usuario") @Data
 public class Professor extends Usuario {
     @NonNull private String nome;
-    @NonNull private String interesseDePesquisa;
+    private List<Interesse> interessesDePesquisa;
     private List<Orientacao> orientacoes = new ArrayList<>();
 
-    public Professor (String id, @NotNull String nome, @NotNull String interesseDePesquisa,
+    public Professor (String id, @NotNull String nome, @NotNull List<Interesse>
+            interesseDePesquisa,
     @NotNull String email, @NotNull String senha) {
         super(id, email, senha);
         this.nome = nome;
-        this.interesseDePesquisa = interesseDePesquisa;
+        this.interessesDePesquisa = interesseDePesquisa;
         addPerfil(Perfil.ROLE_PROFESSOR);
+    }
+
+    public void addInteresse(Interesse interesse) {
+        interessesDePesquisa.add(interesse);
     }
 
 
