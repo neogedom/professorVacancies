@@ -11,8 +11,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 public class OrientacaoDTO {
 
     private String id;
-    @Field
-    private Tipo tipo;
+    @Field private Tipo tipo;
     private PeriodoDTO periodoInscricao;
     private String professor;
     private Integer vagas;

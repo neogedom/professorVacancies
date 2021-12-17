@@ -17,12 +17,11 @@ public class Professor extends Usuario {
     private List<Interesse> interessesDePesquisa;
     private List<Orientacao> orientacoes = new ArrayList<>();
 
-    public Professor (String id, @NotNull String nome, @NotNull List<Interesse>
-            interesseDePesquisa,
-    @NotNull String email, @NotNull String senha) {
+    public Professor (String id, String nome, List<Interesse>
+            interessesDePesquisa, String email, String senha) {
         super(id, email, senha);
         this.nome = nome;
-        this.interessesDePesquisa = interesseDePesquisa;
+        this.interessesDePesquisa = interessesDePesquisa;
         addPerfil(Perfil.ROLE_PROFESSOR);
     }
 

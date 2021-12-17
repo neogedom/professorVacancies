@@ -18,7 +18,7 @@ public class Usuario {
     @NonNull private String senha;
     private Set<Perfil> perfis = new HashSet<>();
 
-    public Usuario (String id, @NotNull String email, @NotNull String senha) {
+    public Usuario (String id, String email, String senha) {
         this.id = id;
         this.email = email;
         this.senha = senha;

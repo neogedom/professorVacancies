@@ -1,13 +1,15 @@
 package com.neogedom.professorvacancies.resources;
 
+import com.neogedom.professorvacancies.domain.Orientacao;
 import com.neogedom.professorvacancies.dto.OrientacaoDTO;
 import com.neogedom.professorvacancies.services.OrientacaoService;
-import com.neogedom.professorvacancies.services.exceptions.MissingPropertyException;
 import lombok.NonNull;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/orientacao")
@@ -25,6 +27,13 @@ public class OrientacaoResource {
         var orientacao = orientacaoService.fromDTO(orientacaoDTO);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(new OrientacaoDTO(orientacaoService.create(orientacao)));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<OrientacaoDTO>> getAll () {
+        var list = orientacaoService.getAll().stream()
+                .map(OrientacaoDTO::new).collect(Collectors.toList());
+        return ResponseEntity.ok(list);
     }
 
 //    @PutMapping(value = "/aluno/{id}")

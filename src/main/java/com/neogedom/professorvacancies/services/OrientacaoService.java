@@ -9,6 +9,8 @@ import com.neogedom.professorvacancies.services.exceptions.ObjectNotFoundExcepti
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class OrientacaoService {
 
@@ -19,6 +21,12 @@ public class OrientacaoService {
                              ProfessorRepository professorRepository) {
         this.orientacaoRepository = orientacaoRepository;
         this.professorRepository = professorRepository;
+    }
+
+    public List<Orientacao> getAll() {
+
+        var list = orientacaoRepository.findAll();
+        return list;
     }
 
     public Orientacao getById(@NotNull String id) {
@@ -58,6 +66,7 @@ public class OrientacaoService {
                         orientacaoDTO.getProfessor() + " Tipo: " + Professor.class.getName()));
         return new Orientacao(orientacaoDTO.getId(), orientacaoDTO.getTipo(), orientacaoDTO.getPeriodoInscricao(), professor, orientacaoDTO.getVagas());
     }
+
 
 
 }

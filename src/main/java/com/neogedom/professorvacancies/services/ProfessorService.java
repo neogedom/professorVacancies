@@ -1,6 +1,5 @@
 package com.neogedom.professorvacancies.services;
 
-import com.neogedom.professorvacancies.domain.Interesse;
 import com.neogedom.professorvacancies.domain.Professor;
 import com.neogedom.professorvacancies.dto.NewProfessorDTO;
 import com.neogedom.professorvacancies.repository.InteresseRepository;
@@ -8,8 +7,6 @@ import com.neogedom.professorvacancies.repository.ProfessorRepository;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class ProfessorService {
