@@ -14,6 +14,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import javax.servlet.FilterChain;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -40,8 +41,8 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
     @SneakyThrows
     @Override
-    protected void successfulAuthentication (HttpServletRequest req, @NotNull HttpServletResponse res,
-                                            FilterChain chain, @NotNull Authentication auth)  {
+    protected void successfulAuthentication (HttpServletRequest req, HttpServletResponse res,
+                                            FilterChain chain, Authentication auth)  {
         String username = ((UserSS) auth.getPrincipal()).getUsername();
         String token = jwtUtil.generateToken(username);
         res.addHeader("Authorization", "Bearer " + token);
@@ -49,14 +50,14 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
     private static class JWTAuthenticationFailureHandler implements AuthenticationFailureHandler {
 
-        @Override @SneakyThrows
-        public void onAuthenticationFailure(HttpServletRequest req, @NotNull HttpServletResponse res, AuthenticationException exception) {
+        @Override
+        public void onAuthenticationFailure(HttpServletRequest req, HttpServletResponse res, AuthenticationException exception) throws IOException {
             res.setStatus(401);
             res.setContentType("application/json");
             res.getWriter().append(json());
         }
 
-        private @NotNull String json () {
+        private String json () {
             return "{\"timestamp\": " + LocalDateTime.now() + ", "
                     + "\"status\": 401, "
                     + "\"error\": \"Não autorizado\", "

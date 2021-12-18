@@ -1,14 +1,17 @@
 package com.neogedom.professorvacancies.config;
 
 import com.neogedom.professorvacancies.security.JWTAuthenticationFilter;
+import com.neogedom.professorvacancies.security.JWTAuthorizationFilter;
 import com.neogedom.professorvacancies.security.JWTUtil;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
@@ -27,18 +30,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         this.jwtUtil = jwtUtil;
     }
     private static final String[] PUBLIC_MATCHERS = {
-            "/professor/**",
-            "/aluno/**",
             "/orientacao/**"
     };
 
     @Override
     protected void configure(@NotNull HttpSecurity http) throws Exception {
-        http.cors().and().csrf().disable();
-        http.authorizeRequests()
-                .antMatchers(PUBLIC_MATCHERS).permitAll()
-                .anyRequest().authenticated();
-        http.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil));
+        http.cors()
+                .and().authorizeRequests()
+                .antMatchers(HttpMethod.GET, PUBLIC_MATCHERS).permitAll()
+                .anyRequest().authenticated()
+                .and().addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil))
+                .addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtUtil, userDetailsService))
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and().csrf().disable();
     }
 
     @Override
