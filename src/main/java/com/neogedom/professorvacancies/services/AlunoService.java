@@ -3,7 +3,9 @@ package com.neogedom.professorvacancies.services;
 import com.neogedom.professorvacancies.domain.Aluno;
 import com.neogedom.professorvacancies.dto.NewAlunoDTO;
 import com.neogedom.professorvacancies.repository.AlunoRepository;
-import org.jetbrains.annotations.NotNull;
+import com.neogedom.professorvacancies.security.UserSS;
+import com.neogedom.professorvacancies.services.exceptions.ObjectNotFoundException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +24,22 @@ public class AlunoService {
         return repo.save(aluno);
     }
 
-    public Aluno fromDTO (@NotNull NewAlunoDTO alunoDTO) {
+    public Aluno getById(String id) {
+        return repo.findById(id)
+                .orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " +
+                        id + " Tipo: " + Aluno.class.getName()));
+    }
+
+    public Aluno authenticated() {
+        return fromUserSS((UserSS) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+    }
+
+    public Aluno fromDTO (NewAlunoDTO alunoDTO) {
         return new Aluno(alunoDTO.getId(), alunoDTO.getNome(), alunoDTO.getTelefone(), alunoDTO.getEmail(), pe.encode(alunoDTO.getSenha()));
     }
+
+    private Aluno fromUserSS (UserSS userSS) {
+        return  getById(userSS.getId());
+    }
+
 }

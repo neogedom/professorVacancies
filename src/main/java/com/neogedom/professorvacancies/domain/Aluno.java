@@ -1,15 +1,15 @@
 package com.neogedom.professorvacancies.domain;
 
 import com.neogedom.professorvacancies.domain.enums.Perfil;
-import lombok.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import org.jetbrains.annotations.NotNull;
-import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @EqualsAndHashCode(callSuper = true)
 @Document(collection = "usuario") @Data @NoArgsConstructor
