@@ -22,6 +22,7 @@ public class OrientacaoResource {
         this.orientacaoService = orientacaoService;
     }
 
+    @PreAuthorize("hasAnyRole('PROFESSOR')")
     @PostMapping
     public ResponseEntity<OrientacaoDTO> create (@RequestBody OrientacaoDTO orientacaoDTO) {
         var orientacao = orientacaoService.fromDTO(orientacaoDTO);
