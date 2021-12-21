@@ -5,6 +5,7 @@ import com.neogedom.professorvacancies.services.OrientacaoService;
 import lombok.NonNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -35,6 +36,7 @@ public class OrientacaoResource {
         return ResponseEntity.ok(list);
     }
 
+    @PreAuthorize("hasAnyRole('ALUNO')")
     @PutMapping(value = "/subscribe")
     public ResponseEntity<OrientacaoDTO> subscribe (@RequestBody OrientacaoDTO orientacaoDTO) {
         return ResponseEntity.status(HttpStatus.NO_CONTENT)
