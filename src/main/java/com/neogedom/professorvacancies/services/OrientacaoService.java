@@ -62,7 +62,7 @@ public class OrientacaoService {
         return orientacao;
     }
 
-    public Orientacao fromDTO(@NotNull OrientacaoDTO orientacaoDTO) {
+    public Orientacao fromDTO(OrientacaoDTO orientacaoDTO) {
         var professor =  professorRepository.findById(orientacaoDTO.getProfessor())
                 .orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " +
                         orientacaoDTO.getProfessor() + " Tipo: " + Professor.class.getName()));
