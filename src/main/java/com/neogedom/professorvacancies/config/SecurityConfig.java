@@ -36,11 +36,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             "/orientacao/**"
     };
 
+    private static final String[] PUBLIC_MATCHERS_POST = {
+            "/aluno/**",
+            "/professor/**"
+    };
+
     @Override
     protected void configure(@NotNull HttpSecurity http) throws Exception {
         http.cors()
                 .and().authorizeRequests()
                 .antMatchers(HttpMethod.GET, PUBLIC_MATCHERS).permitAll()
+                .antMatchers(HttpMethod.POST, PUBLIC_MATCHERS_POST).permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .exceptionHandling().authenticationEntryPoint(authenticationEntryPoint())

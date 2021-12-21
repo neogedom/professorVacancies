@@ -3,7 +3,6 @@ package com.neogedom.professorvacancies.resources;
 import com.neogedom.professorvacancies.dto.OrientacaoDTO;
 import com.neogedom.professorvacancies.services.OrientacaoService;
 import com.neogedom.professorvacancies.services.ProfessorService;
-import lombok.NonNull;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
