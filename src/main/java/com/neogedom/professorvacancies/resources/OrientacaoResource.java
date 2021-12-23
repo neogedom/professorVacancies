@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,7 +28,7 @@ public class OrientacaoResource {
 
     @PreAuthorize("hasAnyRole('PROFESSOR')")
     @PostMapping
-    public ResponseEntity<OrientacaoDTO> create (@RequestBody OrientacaoDTO orientacaoDTO) {
+    public ResponseEntity<OrientacaoDTO> create (@Valid @RequestBody OrientacaoDTO orientacaoDTO) {
         orientacaoDTO.setProfessor(professorService.authenticated().getId());
         var orientacao = orientacaoService.fromDTO(orientacaoDTO);
         return ResponseEntity.status(HttpStatus.CREATED)

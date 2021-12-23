@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping(value = "/aluno")
 public class AlunoResource {
@@ -23,7 +25,7 @@ public class AlunoResource {
     }
 
     @PostMapping
-    public ResponseEntity<AlunoDTO> create (@RequestBody NewAlunoDTO alunoDTO) {
+    public ResponseEntity<AlunoDTO> create (@Valid @RequestBody NewAlunoDTO alunoDTO) {
         Aluno aluno = alunoService.fromDTO(alunoDTO);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(new AlunoDTO(alunoService.create(aluno)));

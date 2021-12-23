@@ -22,6 +22,6 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
         return "{\"timestamp\": " + LocalDateTime.now() + ", "
                 + "\"status\": 403, "
                 + "\"error\": \"Não autorizado\", "
-                + "\"message\": \"Este usuário não pode acessar esse recurso\" ";
+                + "\"message\": \"Este usuário não pode acessar esse recurso\" } ";
     }
 }

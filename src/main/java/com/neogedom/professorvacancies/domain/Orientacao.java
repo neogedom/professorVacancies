@@ -10,6 +10,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,11 +23,11 @@ public class Orientacao {
     @NonNull private Integer vagas;
     private List<Aluno> inscritos = new ArrayList<>();
 
-    public Orientacao(String id, @NotNull Tipo tipo, @NotNull PeriodoDTO periodoInscricao,
+    public Orientacao(String id, @NotNull Tipo tipo, @NotNull LocalDate dataInicial, @NotNull LocalDate dataFinal,
                       @NotNull Professor professor, @NonNull Integer vagas) {
         this.id = id;
         this.tipo = tipo;
-        this.periodoInscricao = periodoInscricao;
+        this.periodoInscricao = new PeriodoDTO(dataInicial, dataFinal);
         this.professor = professor;
         this.vagas = vagas;
     }

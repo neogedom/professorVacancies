@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping(value = "/professor")
 public class ProfessorResource {
@@ -20,7 +22,7 @@ public class ProfessorResource {
     }
 
     @PostMapping
-    public ResponseEntity<ProfessorDTO> create (@RequestBody NewProfessorDTO newProfessorDTO) {
+    public ResponseEntity<ProfessorDTO> create (@Valid @RequestBody NewProfessorDTO newProfessorDTO) {
         Professor professor = professorService.fromDTO(newProfessorDTO);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(new ProfessorDTO(professorService.create(professor)));

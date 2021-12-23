@@ -66,7 +66,7 @@ public class OrientacaoService {
         var professor =  professorRepository.findById(orientacaoDTO.getProfessor())
                 .orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " +
                         orientacaoDTO.getProfessor() + " Tipo: " + Professor.class.getName()));
-        return new Orientacao(orientacaoDTO.getId(), orientacaoDTO.getTipo(), orientacaoDTO.getPeriodoInscricao(), professor, orientacaoDTO.getVagas());
+        return new Orientacao(orientacaoDTO.getId(), orientacaoDTO.getTipo(), orientacaoDTO.getDataInicial(), orientacaoDTO.getDataFinal(), professor, orientacaoDTO.getVagas());
     }
 
 

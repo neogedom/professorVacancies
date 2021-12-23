@@ -48,8 +48,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, PUBLIC_MATCHERS).permitAll()
                 .antMatchers(HttpMethod.POST, PUBLIC_MATCHERS_POST).permitAll()
                 .anyRequest().authenticated()
-                .and()
-                .exceptionHandling().authenticationEntryPoint(authenticationEntryPoint())
+                /*.and()
+                .exceptionHandling().authenticationEntryPoint(authenticationEntryPoint())*/
                 .and().addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil))
                 .addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtUtil, userDetailsService))
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -73,8 +73,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-    @Bean
-    public AuthenticationEntryPoint authenticationEntryPoint(){
-        return new CustomAuthenticationEntryPoint();
-    }
+//    @Bean
+//    public AuthenticationEntryPoint authenticationEntryPoint(){
+//        return new CustomAuthenticationEntryPoint();
+//    }
 }
