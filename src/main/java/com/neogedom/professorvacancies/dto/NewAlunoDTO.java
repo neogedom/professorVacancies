@@ -1,15 +1,12 @@
 package com.neogedom.professorvacancies.dto;
 
-import com.neogedom.professorvacancies.domain.Aluno;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
-import org.jetbrains.annotations.NotNull;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Pattern;
 
 @Getter @Setter @NoArgsConstructor
 public class NewAlunoDTO {

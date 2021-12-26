@@ -11,6 +11,7 @@ import org.jetbrains.annotations.NotNull;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class ProfessorService {
@@ -32,6 +33,7 @@ public class ProfessorService {
                         id + " Tipo: " + Professor.class.getName()));
     }
 
+    @Transactional
     public Professor create (@NotNull Professor professor) {
         if (professor.getInteressesDePesquisa().isEmpty()) {
             return professorRepository.save(professor);
