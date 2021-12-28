@@ -1,5 +1,7 @@
 package com.neogedom.professorvacancies.resources.exceptions;
 
+import com.mongodb.DuplicateKeyException;
+import com.mongodb.MongoWriteException;
 import com.neogedom.professorvacancies.services.exceptions.MissingPropertyException;
 import com.neogedom.professorvacancies.services.exceptions.ObjectNotFoundException;
 import org.springframework.http.HttpStatus;
@@ -32,6 +34,12 @@ public class ResourceExceptionHandler {
         for (FieldError x : e.getBindingResult().getFieldErrors()) {
             err.addError(x.getField(), x.getDefaultMessage());
         }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
+    }
+
+    @ExceptionHandler(MongoWriteException.class)
+    public ResponseEntity<StandardError> duplicateKey(MongoWriteException e, HttpServletRequest request) {
+        StandardError err = new StandardError(HttpStatus.BAD_REQUEST.value(), "E-mail duplicado", LocalDateTime.now());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
     }
 
