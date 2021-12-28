@@ -2,7 +2,6 @@ package com.neogedom.professorvacancies.resources.exceptions;
 
 import com.neogedom.professorvacancies.services.exceptions.MissingPropertyException;
 import com.neogedom.professorvacancies.services.exceptions.ObjectNotFoundException;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
