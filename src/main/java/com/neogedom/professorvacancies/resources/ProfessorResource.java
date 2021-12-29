@@ -1,7 +1,6 @@
 package com.neogedom.professorvacancies.resources;
 
 import com.neogedom.professorvacancies.domain.Professor;
-import com.neogedom.professorvacancies.dto.AlunoDTO;
 import com.neogedom.professorvacancies.dto.NewProfessorDTO;
 import com.neogedom.professorvacancies.dto.ProfessorDTO;
 import com.neogedom.professorvacancies.services.ProfessorService;

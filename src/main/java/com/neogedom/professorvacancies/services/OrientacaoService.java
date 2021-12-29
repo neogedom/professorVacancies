@@ -6,10 +6,7 @@ import com.neogedom.professorvacancies.dto.NewOrientacaoDTO;
 import com.neogedom.professorvacancies.dto.OrientacaoDTO;
 import com.neogedom.professorvacancies.repository.OrientacaoRepository;
 import com.neogedom.professorvacancies.repository.ProfessorRepository;
-import com.neogedom.professorvacancies.services.exceptions.AlreadySubscriptedException;
-import com.neogedom.professorvacancies.services.exceptions.MissingPropertyException;
-import com.neogedom.professorvacancies.services.exceptions.NoVacanciesException;
-import com.neogedom.professorvacancies.services.exceptions.ObjectNotFoundException;
+import com.neogedom.professorvacancies.services.exceptions.*;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 
@@ -21,18 +18,32 @@ public class OrientacaoService {
     private final OrientacaoRepository orientacaoRepository;
     private final ProfessorRepository professorRepository;
     private final AlunoService alunoService;
+    private final ProfessorService professorService;
 
     public OrientacaoService(OrientacaoRepository orientacaoRepository,
                              ProfessorRepository professorRepository,
-                             AlunoService alunoService) {
+                             AlunoService alunoService,
+                             ProfessorService professorService) {
         this.orientacaoRepository = orientacaoRepository;
         this.professorRepository = professorRepository;
         this.alunoService = alunoService;
+        this.professorService = professorService;
     }
 
     public List<Orientacao> getAll() {
-
+        var aluno = alunoService.authenticated();
+        if(aluno == null) {
+            throw new AuthorizationException("Acesso negado!");
+        }
         return orientacaoRepository.findAll();
+    }
+
+    public List<Orientacao> getAllByProfessor() {
+        var professor = professorService.authenticated();
+        if(professor == null) {
+            throw new AuthorizationException("Acesso negado!");
+        }
+        return orientacaoRepository.findAllByProfessor(professor);
     }
 
     public Orientacao getById(String id) {

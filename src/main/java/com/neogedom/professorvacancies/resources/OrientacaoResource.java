@@ -38,7 +38,8 @@ public class OrientacaoResource {
 
     @GetMapping
     public ResponseEntity<List<OrientacaoDTO>> getAll () {
-        var list = orientacaoService.getAll().stream()
+
+        var list = orientacaoService.getAllByProfessor().stream()
                 .map(OrientacaoDTO::new).collect(Collectors.toList());
         return ResponseEntity.ok(list);
     }
