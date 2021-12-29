@@ -1,5 +1,6 @@
 package com.neogedom.professorvacancies.resources;
 
+import com.neogedom.professorvacancies.dto.NewOrientacaoDTO;
 import com.neogedom.professorvacancies.dto.OrientacaoDTO;
 import com.neogedom.professorvacancies.services.OrientacaoService;
 import com.neogedom.professorvacancies.services.ProfessorService;
@@ -28,9 +29,9 @@ public class OrientacaoResource {
 
     @PreAuthorize("hasAnyRole('PROFESSOR')")
     @PostMapping
-    public ResponseEntity<OrientacaoDTO> create (@Valid @RequestBody OrientacaoDTO orientacaoDTO) {
-        orientacaoDTO.setProfessor(professorService.authenticated().getId());
-        var orientacao = orientacaoService.fromDTO(orientacaoDTO);
+    public ResponseEntity<OrientacaoDTO> create (@Valid @RequestBody NewOrientacaoDTO newOrientacaoDTO) {
+        newOrientacaoDTO.setProfessor(professorService.authenticated().getId());
+        var orientacao = orientacaoService.fromDTO(newOrientacaoDTO);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(new OrientacaoDTO(orientacaoService.create(orientacao)));
     }

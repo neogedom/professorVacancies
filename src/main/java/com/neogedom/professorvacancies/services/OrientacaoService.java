@@ -2,10 +2,13 @@ package com.neogedom.professorvacancies.services;
 
 import com.neogedom.professorvacancies.domain.Orientacao;
 import com.neogedom.professorvacancies.domain.Professor;
+import com.neogedom.professorvacancies.dto.NewOrientacaoDTO;
 import com.neogedom.professorvacancies.dto.OrientacaoDTO;
 import com.neogedom.professorvacancies.repository.OrientacaoRepository;
 import com.neogedom.professorvacancies.repository.ProfessorRepository;
+import com.neogedom.professorvacancies.services.exceptions.AlreadySubscriptedException;
 import com.neogedom.professorvacancies.services.exceptions.MissingPropertyException;
+import com.neogedom.professorvacancies.services.exceptions.NoVacanciesException;
 import com.neogedom.professorvacancies.services.exceptions.ObjectNotFoundException;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
@@ -55,14 +58,19 @@ public class OrientacaoService {
 
         var orientacao = getById(orientacaoDTO.getId());
         if (orientacao.getVagas() > 0) {
-            orientacao.getInscritos().add(alunoService.authenticated());
-            orientacao.setVagas(orientacao.getVagas() - 1);
+            var aluno = alunoService.authenticated();
+             if (getById(orientacaoDTO.getId()).getInscritos().contains(aluno)){
+                 throw new AlreadySubscriptedException("Você já está inscrito nessa orientação");
+             }
+            orientacao.getInscritos().add(aluno);
             orientacaoRepository.save(orientacao);
+        } else {
+             throw new NoVacanciesException("Quantidade insuficiente de vagas");
         }
         return orientacao;
     }
 
-    public Orientacao fromDTO(OrientacaoDTO orientacaoDTO) {
+    public Orientacao fromDTO(NewOrientacaoDTO orientacaoDTO) {
         var professor =  professorRepository.findById(orientacaoDTO.getProfessor())
                 .orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " +
                         orientacaoDTO.getProfessor() + " Tipo: " + Professor.class.getName()));

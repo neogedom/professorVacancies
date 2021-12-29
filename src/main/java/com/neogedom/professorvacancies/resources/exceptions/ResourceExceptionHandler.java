@@ -2,7 +2,9 @@ package com.neogedom.professorvacancies.resources.exceptions;
 
 import com.mongodb.DuplicateKeyException;
 import com.mongodb.MongoWriteException;
+import com.neogedom.professorvacancies.services.exceptions.AlreadySubscriptedException;
 import com.neogedom.professorvacancies.services.exceptions.MissingPropertyException;
+import com.neogedom.professorvacancies.services.exceptions.NoVacanciesException;
 import com.neogedom.professorvacancies.services.exceptions.ObjectNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -42,5 +44,18 @@ public class ResourceExceptionHandler {
         StandardError err = new StandardError(HttpStatus.BAD_REQUEST.value(), "E-mail duplicado", LocalDateTime.now());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
     }
+
+    @ExceptionHandler(AlreadySubscriptedException.class)
+    public ResponseEntity<StandardError> alreadySubscrited(AlreadySubscriptedException e, HttpServletRequest request) {
+        StandardError err = new StandardError(HttpStatus.BAD_REQUEST.value(), "Aluno já inscrito", LocalDateTime.now());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
+    }
+
+    @ExceptionHandler(NoVacanciesException.class)
+    public ResponseEntity<StandardError> noVacancies(NoVacanciesException e, HttpServletRequest request) {
+        StandardError err = new StandardError(HttpStatus.BAD_REQUEST.value(), "Não há vagas para esta orientação", LocalDateTime.now());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
+    }
+
 
 }

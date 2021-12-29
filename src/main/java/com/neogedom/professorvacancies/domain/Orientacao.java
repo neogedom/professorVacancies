@@ -11,8 +11,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Document @Data @NoArgsConstructor
 public class Orientacao {
@@ -21,7 +21,7 @@ public class Orientacao {
     @NonNull private PeriodoDTO periodoInscricao;
     @NonNull private Professor professor;
     @NonNull private Integer vagas;
-    private List<Aluno> inscritos = new ArrayList<>();
+    private Set<Aluno> inscritos = new HashSet<>();
 
     public Orientacao(String id, @NotNull Tipo tipo, @NotNull LocalDate dataInicial, @NotNull LocalDate dataFinal,
                       @NotNull Professor professor, @NonNull Integer vagas) {
