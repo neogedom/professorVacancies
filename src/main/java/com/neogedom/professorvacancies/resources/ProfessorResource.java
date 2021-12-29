@@ -1,6 +1,7 @@
 package com.neogedom.professorvacancies.resources;
 
 import com.neogedom.professorvacancies.domain.Professor;
+import com.neogedom.professorvacancies.dto.AlunoDTO;
 import com.neogedom.professorvacancies.dto.NewProfessorDTO;
 import com.neogedom.professorvacancies.dto.ProfessorDTO;
 import com.neogedom.professorvacancies.services.ProfessorService;
@@ -19,6 +20,11 @@ public class ProfessorResource {
 
     public ProfessorResource(@NonNull ProfessorService professorService) {
         this.professorService = professorService;
+    }
+
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<ProfessorDTO> getById(@PathVariable String id) {
+        return ResponseEntity.ok().body(new ProfessorDTO(professorService.getSelf(id)));
     }
 
     @PostMapping

@@ -6,6 +6,7 @@ import com.neogedom.professorvacancies.dto.NewProfessorDTO;
 import com.neogedom.professorvacancies.repository.InteresseRepository;
 import com.neogedom.professorvacancies.repository.ProfessorRepository;
 import com.neogedom.professorvacancies.security.UserSS;
+import com.neogedom.professorvacancies.services.exceptions.AuthorizationException;
 import com.neogedom.professorvacancies.services.exceptions.ObjectNotFoundException;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -31,6 +32,14 @@ public class ProfessorService {
         return professorRepository.findById(id)
                 .orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " +
                         id + " Tipo: " + Professor.class.getName()));
+    }
+
+    public Professor getSelf(String id) {
+        var professor = authenticated();
+        if (!id.equals(professor.getId())) {
+            throw new AuthorizationException("Acesso negado");
+        }
+        return professor;
     }
 
     @Transactional

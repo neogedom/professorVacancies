@@ -1,11 +1,7 @@
 package com.neogedom.professorvacancies.resources.exceptions;
 
-import com.mongodb.DuplicateKeyException;
 import com.mongodb.MongoWriteException;
-import com.neogedom.professorvacancies.services.exceptions.AlreadySubscriptedException;
-import com.neogedom.professorvacancies.services.exceptions.MissingPropertyException;
-import com.neogedom.professorvacancies.services.exceptions.NoVacanciesException;
-import com.neogedom.professorvacancies.services.exceptions.ObjectNotFoundException;
+import com.neogedom.professorvacancies.services.exceptions.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -55,6 +51,12 @@ public class ResourceExceptionHandler {
     public ResponseEntity<StandardError> noVacancies(NoVacanciesException e, HttpServletRequest request) {
         StandardError err = new StandardError(HttpStatus.BAD_REQUEST.value(), "Não há vagas para esta orientação", LocalDateTime.now());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
+    }
+
+    @ExceptionHandler(AuthorizationException.class)
+    public ResponseEntity<StandardError> authorization(AuthorizationException e, HttpServletRequest request) {
+        StandardError err = new StandardError(HttpStatus.FORBIDDEN.value(), e.getMessage(), LocalDateTime.now());
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(err);
     }
 
 
