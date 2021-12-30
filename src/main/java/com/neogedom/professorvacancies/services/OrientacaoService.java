@@ -4,11 +4,13 @@ import com.neogedom.professorvacancies.domain.Orientacao;
 import com.neogedom.professorvacancies.domain.Professor;
 import com.neogedom.professorvacancies.dto.NewOrientacaoDTO;
 import com.neogedom.professorvacancies.dto.OrientacaoDTO;
+import com.neogedom.professorvacancies.repository.AlunoRepository;
 import com.neogedom.professorvacancies.repository.OrientacaoRepository;
 import com.neogedom.professorvacancies.repository.ProfessorRepository;
 import com.neogedom.professorvacancies.services.exceptions.*;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -17,15 +19,18 @@ public class OrientacaoService {
 
     private final OrientacaoRepository orientacaoRepository;
     private final ProfessorRepository professorRepository;
+    private final AlunoRepository alunoRepository;
     private final AlunoService alunoService;
     private final ProfessorService professorService;
 
     public OrientacaoService(OrientacaoRepository orientacaoRepository,
                              ProfessorRepository professorRepository,
+                             AlunoRepository alunoRepository,
                              AlunoService alunoService,
                              ProfessorService professorService) {
         this.orientacaoRepository = orientacaoRepository;
         this.professorRepository = professorRepository;
+        this.alunoRepository = alunoRepository;
         this.alunoService = alunoService;
         this.professorService = professorService;
     }
@@ -60,6 +65,7 @@ public class OrientacaoService {
         return orientacaoRepository.save(orientacao);
     }
 
+    @Transactional
     public Orientacao subscribe(OrientacaoDTO orientacaoDTO) {
 
         if (orientacaoDTO.getId().equals("") || orientacaoDTO.getId().isBlank())
@@ -74,7 +80,9 @@ public class OrientacaoService {
                  throw new AlreadySubscriptedException("Você já está inscrito nessa orientação");
              }
             orientacao.getInscritos().add(aluno);
+
             orientacaoRepository.save(orientacao);
+            alunoRepository.save(aluno);
         } else {
              throw new NoVacanciesException("Quantidade insuficiente de vagas");
         }

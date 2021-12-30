@@ -16,7 +16,6 @@ import java.util.List;
 public class Aluno extends Usuario {
     @NonNull private String nome;
     @NonNull private String telefone;
-    private List<Orientacao> orientacoes = new ArrayList<>();
 
     public Aluno(String id, @NonNull String nome, @NonNull String telefone,
     @NotNull String email, @NotNull String senha) {

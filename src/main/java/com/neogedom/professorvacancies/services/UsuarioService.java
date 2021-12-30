@@ -5,7 +5,6 @@ import com.neogedom.professorvacancies.repository.UsuarioRepository;
 import com.neogedom.professorvacancies.security.UserSS;
 import com.neogedom.professorvacancies.services.exceptions.ObjectNotFoundException;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
