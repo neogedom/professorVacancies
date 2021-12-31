@@ -11,6 +11,4 @@ import java.util.List;
 @Repository
 public interface OrientacaoRepository extends MongoRepository<Orientacao, String> {
 
-    @Transactional(readOnly = true)
-    List<Orientacao> findAllByProfessor(Professor professor);
 }

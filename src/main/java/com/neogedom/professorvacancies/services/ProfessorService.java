@@ -13,6 +13,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class ProfessorService {
 
@@ -31,6 +34,11 @@ public class ProfessorService {
         return professorRepository.findById(id)
                 .orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " +
                         id + " Tipo: " + Professor.class.getName()));
+    }
+
+    public List<Professor> getAll() {
+        return professorRepository.findAll()
+                .stream().filter(x -> !x.getOrientacoes().isEmpty()).collect(Collectors.toList());
     }
 
     public Professor getSelf(String id) {

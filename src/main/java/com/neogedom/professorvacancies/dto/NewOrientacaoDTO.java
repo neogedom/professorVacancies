@@ -3,7 +3,6 @@ package com.neogedom.professorvacancies.dto;
 import com.neogedom.professorvacancies.domain.enums.Tipo;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.mongodb.core.mapping.Field;
 
 import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.PastOrPresent;
@@ -19,7 +18,6 @@ public class NewOrientacaoDTO {
     private LocalDate dataInicial;
     @FutureOrPresent(message = "A data final deve maior ou igual à de hoje")
     private LocalDate dataFinal;
-    private String professor;
     @Positive(message = "A quantidade de vagas deve ser maior que uma")
     private Integer vagas;
 

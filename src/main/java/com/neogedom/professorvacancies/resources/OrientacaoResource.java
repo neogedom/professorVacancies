@@ -30,7 +30,6 @@ public class OrientacaoResource {
     @PreAuthorize("hasAnyRole('PROFESSOR')")
     @PostMapping
     public ResponseEntity<OrientacaoDTO> create (@Valid @RequestBody NewOrientacaoDTO newOrientacaoDTO) {
-        newOrientacaoDTO.setProfessor(professorService.authenticated().getId());
         var orientacao = orientacaoService.fromDTO(newOrientacaoDTO);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(new OrientacaoDTO(orientacaoService.create(orientacao)));

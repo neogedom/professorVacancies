@@ -15,7 +15,6 @@ public class OrientacaoDTO {
     private Tipo tipo;
     private LocalDate dataInicial;
     private LocalDate dataFinal;
-    private String professor;
     private Integer vagas;
     private Integer qtdeInscritos;
 
@@ -24,7 +23,6 @@ public class OrientacaoDTO {
         this.tipo = orientacao.getTipo();
         this.dataInicial = orientacao.getPeriodoInscricao().getDataInicial();
         this.dataFinal = orientacao.getPeriodoInscricao().getDataInicial();
-        this.professor = orientacao.getProfessor().getId();
         this.vagas = orientacao.getVagas();
         this.qtdeInscritos = orientacao.getInscritos().size();
     }

@@ -35,20 +35,12 @@ public class OrientacaoService {
         this.professorService = professorService;
     }
 
-    public List<Orientacao> getAll() {
-        var aluno = alunoService.authenticated();
-        if(aluno == null) {
-            throw new AuthorizationException("Acesso negado!");
-        }
-        return orientacaoRepository.findAll();
-    }
-
     public List<Orientacao> getAllByProfessor() {
         var professor = professorService.authenticated();
         if(professor == null) {
             throw new AuthorizationException("Acesso negado!");
         }
-        return orientacaoRepository.findAllByProfessor(professor);
+        return professor.getOrientacoes();
     }
 
     public Orientacao getById(String id) {
@@ -57,11 +49,15 @@ public class OrientacaoService {
                         id + " Tipo: " + Orientacao.class.getName()));
     }
 
+    @Transactional
     public Orientacao create (@NotNull Orientacao orientacao) {
-        var professor =  professorRepository.findById(orientacao.getProfessor().getId())
+        var idProfessor = professorService.authenticated().getId();
+        var professor = professorRepository.findById(idProfessor)
                 .orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " +
-                        orientacao.getProfessor().getId() + " Tipo: " + Professor.class.getName()));
-        orientacao.setProfessor(professor);
+                        idProfessor + " Tipo: " + Professor.class.getName()));
+        var savedOrientacao = orientacaoRepository.save(orientacao);
+        professor.getOrientacoes().add(savedOrientacao);
+        professorRepository.save(professor);
         return orientacaoRepository.save(orientacao);
     }
 
@@ -90,10 +86,7 @@ public class OrientacaoService {
     }
 
     public Orientacao fromDTO(NewOrientacaoDTO orientacaoDTO) {
-        var professor =  professorRepository.findById(orientacaoDTO.getProfessor())
-                .orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " +
-                        orientacaoDTO.getProfessor() + " Tipo: " + Professor.class.getName()));
-        return new Orientacao(orientacaoDTO.getId(), orientacaoDTO.getTipo(), orientacaoDTO.getDataInicial(), orientacaoDTO.getDataFinal(), professor, orientacaoDTO.getVagas());
+        return new Orientacao(orientacaoDTO.getId(), orientacaoDTO.getTipo(), orientacaoDTO.getDataInicial(), orientacaoDTO.getDataFinal(), orientacaoDTO.getVagas());
     }
 
 
