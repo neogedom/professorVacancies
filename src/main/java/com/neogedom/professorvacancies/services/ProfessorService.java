@@ -8,6 +8,9 @@ import com.neogedom.professorvacancies.security.UserSS;
 import com.neogedom.professorvacancies.services.exceptions.AuthorizationException;
 import com.neogedom.professorvacancies.services.exceptions.ObjectNotFoundException;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -58,7 +61,11 @@ public class ProfessorService {
         return professorRepository.save(professor);
     }
 
+    public Page<Professor> getPage (Integer page, Integer linesPerPage, String orderBy, String direction) {
+        PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.valueOf(direction), orderBy);
+        return professorRepository.findAllProfessors(pageRequest);
 
+    }
 
     public Professor authenticated() {
         return fromUserSS((UserSS) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
